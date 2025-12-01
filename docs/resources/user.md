@@ -10,6 +10,10 @@ Provides the ability to manage a Split user.
 
 This resource provides the ability to manage a user in Split.
 
+-> **DEPRECATED!**
+This resource is deprecated and cannot be used when authenticating with `harness_token` or `harness_platform_api_key`. 
+
+
 Due to API behavior, this resource does not provide the ability
 to set a user's `name` attribute as you cannot update a user
 that hasn't accepted its invitation. The resource cannot accurately

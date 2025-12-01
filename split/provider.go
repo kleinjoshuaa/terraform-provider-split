@@ -25,6 +25,13 @@ func New() *schema.Provider {
 				Description: "Harness token for authentication. When set, uses 'x-api-key' header authentication instead of Bearer token.",
 			},
 
+			"harness_platform_api_key": {
+				Type:        schema.TypeString,
+				Optional:    true,
+				DefaultFunc: schema.EnvDefaultFunc("HARNESS_PLATFORM_API_KEY", nil),
+				Description: "Harness Platform API key for authentication. When set, uses 'x-api-key' header authentication instead of Bearer token. Takes precedence over harness_token if both are set.",
+			},
+
 			"base_url": {
 				Type:        schema.TypeString,
 				Optional:    true,
@@ -98,7 +105,10 @@ func providerConfigure(_ context.Context, d *schema.ResourceData) (interface{}, 
 		config.apiKey = apiKey.(string)
 	}
 
-	if harnessToken, ok := d.GetOk("harness_token"); ok {
+	// Check harness_platform_api_key first, then harness_token
+	if harnessPlatformAPIKey, ok := d.GetOk("harness_platform_api_key"); ok {
+		config.harnessToken = harnessPlatformAPIKey.(string)
+	} else if harnessToken, ok := d.GetOk("harness_token"); ok {
 		config.harnessToken = harnessToken.(string)
 	}
 

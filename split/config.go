@@ -78,7 +78,11 @@ func (c *Config) applySchema(d *schema.ResourceData) (err error) {
 		c.apiBaseURL = vs
 	}
 
-	if v, ok := d.GetOk("harness_token"); ok {
+	// Check harness_platform_api_key first, then harness_token
+	if v, ok := d.GetOk("harness_platform_api_key"); ok {
+		vs := v.(string)
+		c.harnessToken = vs
+	} else if v, ok := d.GetOk("harness_token"); ok {
 		vs := v.(string)
 		c.harnessToken = vs
 	}

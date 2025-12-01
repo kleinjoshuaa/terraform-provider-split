@@ -10,6 +10,10 @@ description: |-
 
 Use this resource to manage a Split workspace.
 
+-> **DEPRECATED!**
+This resource is deprecated and cannot be used when authenticating with `harness_token` or `harness_platform_api_key`. 
+
+
 Workspaces allow you to separately manage your feature flags and experiments across your different business units,
 product lines, and applications.
 

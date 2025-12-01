@@ -47,6 +47,11 @@ The following arguments are supported:
 * `environment_ids` - (Required) `<list(string)>` List of environment UUIDs.
 * `name` - (Required) `<boolean>` Name of the API key.
 * `type` - (Required) `<boolean>` Type of the API key. Refer to Split [documentation](https://docs.split.io/reference/create-an-api-key#supported-types) on acceptable values, case sensitive.
+
+-> **DEPRECATED!**
+When `type = "admin"`, this resource is deprecated and cannot be used when authenticating with `harness_token` or `harness_platform_api_key`. 
+
+
 * `roles` - (Required) `<boolean>` Supported only when `type=admin` API keys. For the full list of allowed Admin API Key roles, refer
 to Split [documentation](https://docs.split.io/reference/api-keys-overview#admin-api-key-roles), case sensitive.
 

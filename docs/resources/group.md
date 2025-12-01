@@ -10,6 +10,9 @@ Provides the ability to manage a Split group.
 
 This resource provides the ability to manage a group in Split.
 
+-> **DEPRECATED!**
+This resource is deprecated and cannot be used when authenticating with `harness_token` or `harness_platform_api_key`. 
+
 -> **IMPORTANT!**
 Groups are not available on Split's free tier.
 

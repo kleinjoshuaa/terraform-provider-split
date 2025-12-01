@@ -29,12 +29,15 @@ provider "split" {
   
   # OR use harness_token for x-api-key header authentication
   # harness_token = "YOUR_HARNESS_TOKEN"
+  
+  # OR use harness_platform_api_key for x-api-key header authentication
+  # harness_platform_api_key = "YOUR_HARNESS_PLATFORM_API_KEY"
 }
 ```
 
 ### Authentication Options
 
-This provider supports two authentication methods:
+This provider supports three authentication methods:
 
 1. **API Key Authentication (Default)**: Uses a Bearer token in the Authorization header.
    - Set via the `api_key` parameter or the `SPLIT_API_KEY` environment variable.
@@ -47,6 +50,35 @@ This provider supports two authentication methods:
      - `split_workspace`
      - `split_api_key` (only when `type = "admin"`)
 
+3. **Harness Platform API Key Authentication**: Uses the `x-api-key` header for authentication (same as Harness Token).
+   - Set via the `harness_platform_api_key` parameter or the `HARNESS_PLATFORM_API_KEY` environment variable.
+   - Takes precedence over `harness_token` if both are set.
+   - **Note**: The `HARNESS_PLATFORM_API_KEY` environment variable is shared with the Harness Terraform provider. When using both providers in the same Terraform configuration, you can set this single environment variable to authenticate both providers.
+   - When this authentication method is used, the following resources are deprecated and cannot be used:
+     - `split_user`
+     - `split_group`
+     - `split_workspace`
+     - `split_api_key` (only when `type = "admin"`)
+
+### Using with Harness Provider
+
+When using both the Split and Harness Terraform providers together, you can use the shared `HARNESS_PLATFORM_API_KEY` environment variable:
+
+```hcl
+provider "harness" {
+  # Uses HARNESS_PLATFORM_API_KEY environment variable
+}
+
+provider "split" {
+  # Also uses HARNESS_PLATFORM_API_KEY environment variable
+}
+```
+
+```shell
+# Set once, works for both providers
+$ export HARNESS_PLATFORM_API_KEY="your-platform-api-key"
+$ terraform plan
+```
 
 Releases
 ------------
