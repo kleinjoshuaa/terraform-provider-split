@@ -50,14 +50,15 @@ signs:
       - "--yes"
       - "--pinentry-mode"
       - "loopback"
+        - "--passphrase"
+      - "{{ .Env.PASSPHRASE }}"
       - "--local-user"
       - "{{ .Env.GPG_FINGERPRINT }}" # set this environment variable for your signing key
       - "--output"
       - "${signature}"
       - "--detach-sign"
       - "${artifact}"
-      - "--passphrase-file"
-      - "../passphrase"
+
 release:
   extra_files:
     - glob: 'terraform-registry-manifest.json'
