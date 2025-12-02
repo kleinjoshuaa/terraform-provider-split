@@ -25,7 +25,11 @@ func testAccGetProviderConfig(additionalConfig ...string) string {
 	// Add authentication based on environment variables
 	// Use strconv.Quote to properly escape special characters, then remove outer quotes
 	// since we're already adding them in the template
-	if harnessToken := os.Getenv("HARNESS_TOKEN"); harnessToken != "" {
+	if harnessPlatformAPIKey := os.Getenv("HARNESS_PLATFORM_API_KEY"); harnessPlatformAPIKey != "" {
+		quoted := strconv.Quote(harnessPlatformAPIKey)
+		escapedKey := strings.TrimPrefix(strings.TrimSuffix(quoted, `"`), `"`)
+		lines = append(lines, "\tharness_platform_api_key = \""+escapedKey+"\"")
+	} else if harnessToken := os.Getenv("HARNESS_TOKEN"); harnessToken != "" {
 		quoted := strconv.Quote(harnessToken)
 		escapedToken := strings.TrimPrefix(strings.TrimSuffix(quoted, `"`), `"`)
 		lines = append(lines, "\tharness_token = \""+escapedToken+"\"")
@@ -44,9 +48,9 @@ func testAccGetProviderConfig(additionalConfig ...string) string {
 	return strings.Join(lines, "\n")
 }
 
-// isHarnessTokenEnvironmentSet checks if we're running tests with harness_token
+// isHarnessTokenEnvironmentSet checks if we're running tests with harness_token or harness_platform_api_key
 func isHarnessTokenEnvironmentSet() bool {
-	return os.Getenv("HARNESS_TOKEN") != ""
+	return os.Getenv("HARNESS_PLATFORM_API_KEY") != "" || os.Getenv("HARNESS_TOKEN") != ""
 }
 
 // skipIfUsingHarnessToken skips tests for resources that are deprecated when harness_token is used

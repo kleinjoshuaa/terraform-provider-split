@@ -18,6 +18,7 @@ const (
 	TestConfigSplitTrafficTypeID
 	TestConfigSplitUserEmail
 	TestConfigSplitHarnessToken
+	TestConfigSplitHarnessPlatformAPIKey
 	TestConfigAcceptanceTestKey
 )
 
@@ -28,9 +29,10 @@ var testConfigKeyToEnvName = map[TestConfigKey]string{
 	TestConfigSplitWorkspaceID:     "SPLIT_WORKSPACE_ID",
 	TestConfigSplitWorkspaceName:   "SPLIT_WORKSPACE_NAME",
 	TestConfigSplitEnvironmentID:   "SPLIT_ENVIRONMENT_ID",
-	TestConfigSplitUserEmail:       "SPLIT_USER_EMAIL",
-	TestConfigSplitHarnessToken:    "HARNESS_TOKEN",
-	TestConfigAcceptanceTestKey:    resource.EnvTfAcc,
+	TestConfigSplitUserEmail:            "SPLIT_USER_EMAIL",
+	TestConfigSplitHarnessToken:         "HARNESS_TOKEN",
+	TestConfigSplitHarnessPlatformAPIKey: "HARNESS_PLATFORM_API_KEY",
+	TestConfigAcceptanceTestKey:         resource.EnvTfAcc,
 }
 
 func (k TestConfigKey) String() (name string) {

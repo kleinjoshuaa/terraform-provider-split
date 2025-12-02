@@ -36,11 +36,12 @@ func testAccPreCheck(t *testing.T) {
 	// First check if TF_ACC is set - skip gracefully if not
 	testAccConfig.SkipUnlessAccTest(t)
 
-	// Check for either API key or harness token
+	// Check for either API key, harness token, or harness platform API key
 	apiKey := testAccConfig.Get(helper.TestConfigSplitAPIKey)
 	harnessToken := testAccConfig.Get(helper.TestConfigSplitHarnessToken)
-	if apiKey == "" && harnessToken == "" {
-		t.Fatal("Either SPLIT_API_KEY or HARNESS_TOKEN must be set for acceptance tests")
+	harnessPlatformAPIKey := testAccConfig.Get(helper.TestConfigSplitHarnessPlatformAPIKey)
+	if apiKey == "" && harnessToken == "" && harnessPlatformAPIKey == "" {
+		t.Fatal("Either SPLIT_API_KEY, HARNESS_TOKEN, or HARNESS_PLATFORM_API_KEY must be set for acceptance tests")
 	}
 }
 
