@@ -32,8 +32,8 @@ builds:
     - goos: windows
       goarch: 'arm'
   binary: '{{ .ProjectName }}_v{{ .Version }}'
-formats:
-- format: zip
+archives:
+- formats: zip
   name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}'
 checksum:
   extra_files:
